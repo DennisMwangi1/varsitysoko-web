@@ -47,7 +47,7 @@ const DownloadPage: React.FC<{ onNavigate: (v: ViewState) => void }> = ({ onNavi
           title="Once we launch, here’s the flow."
           lead="Not available yet — this is what signing up will look like."
         />
-        <div className="mt-14 grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div className="mt-14 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
           {[
             { step: '1', title: 'Download', desc: 'Get the free app from the App Store or Google Play when it ships.' },
             { step: '2', title: 'Pick your campus', desc: 'Choose your university and sign up with your student email.' },
@@ -77,7 +77,7 @@ const DownloadPage: React.FC<{ onNavigate: (v: ViewState) => void }> = ({ onNavi
               <div className="flex items-center gap-2 mb-4">
                 <TrustChip>Live now</TrustChip>
               </div>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-10">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 mb-10">
                 {live.map((uni) => (
                   <Card key={uni.id} className="p-5 text-center border-emerald-100 dark:border-emerald-900/50">
                     <h3 className="font-bold text-sm text-ink dark:text-white">{uni.name}</h3>
@@ -91,7 +91,7 @@ const DownloadPage: React.FC<{ onNavigate: (v: ViewState) => void }> = ({ onNavi
           <p className="mb-4 text-sm font-bold text-slate-500 dark:text-slate-400 uppercase tracking-[0.08em]">
             {live.length > 0 ? 'Coming soon' : 'On the roadmap'}
           </p>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
             {soon.map((uni) => (
               <Card key={uni.id} className="p-5 text-center opacity-70">
                 <h3 className="font-bold text-sm text-ink dark:text-white">{uni.name}</h3>

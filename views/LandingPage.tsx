@@ -12,7 +12,7 @@ import {
 import { APP_FEATURES, HOW_IT_WORKS, FAQ, UNIVERSITIES, INTRO_MEDIA } from '../constants';
 import CinematicIntro from '../components/Hero/CinematicIntro';
 import Hero from '../components/Hero/Hero';
-import { usePrefersReducedMotion } from '../components/Hero/useSceneLoop';
+import { useIsMobile, usePrefersReducedMotion } from '../components/Hero/useSceneLoop';
 
 /** Trust chip — green check, dark label. */
 const TrustChip: React.FC<{ children: React.ReactNode }> = ({ children }) => (
@@ -66,12 +66,14 @@ const LandingPage: React.FC<{
   onNavReadyChange?: (ready: boolean) => void;
 }> = ({ onNavigate, onNavReadyChange }) => {
   const reduced = usePrefersReducedMotion();
+  const mobile = useIsMobile();
+  const staticIntro = reduced || mobile;
 
   useLayoutEffect(() => {
     if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
     window.scrollTo(0, 0);
-    onNavReadyChange?.(reduced);
-  }, [reduced, onNavReadyChange]);
+    onNavReadyChange?.(staticIntro);
+  }, [staticIntro, onNavReadyChange]);
 
   return (
     <div>
@@ -169,7 +171,7 @@ const LandingPage: React.FC<{
               Verified students. Designated safe zones. Report and block. Safety isn’t a feature — it’s the product.
             </p>
           </div>
-          <Button variant="secondary" className="mt-8 bg-white text-brand hover:bg-white/90 hover:text-brand-dark" onClick={() => onNavigate('safety')}>
+          <Button variant="inverted" className="mt-8" onClick={() => onNavigate('safety')}>
             Learn about safety →
           </Button>
         </div>

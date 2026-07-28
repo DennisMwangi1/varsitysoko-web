@@ -18,6 +18,25 @@ export function usePrefersReducedMotion(): boolean {
   return reduced;
 }
 
+/** True when viewport is below Tailwind `md` (768px) — keeps pace with sticky/scroll JS. */
+export function useIsMobile(breakpoint = 768): boolean {
+  const query = `(max-width: ${breakpoint - 1}px)`;
+  const [mobile, setMobile] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    return window.matchMedia(query).matches;
+  });
+
+  useEffect(() => {
+    const mq = window.matchMedia(query);
+    setMobile(mq.matches);
+    const onChange = (e: MediaQueryListEvent) => setMobile(e.matches);
+    mq.addEventListener('change', onChange);
+    return () => mq.removeEventListener('change', onChange);
+  }, [query]);
+
+  return mobile;
+}
+
 /**
  * Drives a looping scripted timeline.
  *

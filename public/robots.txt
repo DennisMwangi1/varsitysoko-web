@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://varsitysoko.co.ke/sitemap.xml
+Sitemap: https://varsitysoko.com/sitemap.xml

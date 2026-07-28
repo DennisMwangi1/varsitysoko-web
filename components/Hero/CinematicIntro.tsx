@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { MARK_ASPECT, MARK_RECT, MARK_SHAPE } from './markOutline';
-import { usePrefersReducedMotion } from './useSceneLoop';
+import { useIsMobile, usePrefersReducedMotion } from './useSceneLoop';
 import { BRAND } from '../../constants';
 
 /**
@@ -65,6 +65,9 @@ const CinematicIntro: React.FC<CinematicIntroProps> = ({
   onNavReadyChange,
 }) => {
   const reduced = usePrefersReducedMotion();
+  const mobile = useIsMobile();
+  /** Skip video/scrub on mobile or reduced-motion — static lockup + nav unlocked. */
+  const staticIntro = reduced || mobile;
   const [footageFailed, setFootageFailed] = useState(false);
 
   const sectionRef = useRef<HTMLElement>(null);
@@ -218,26 +221,26 @@ const CinematicIntro: React.FC<CinematicIntroProps> = ({
   }, [measure, render]);
 
   useLayoutEffect(() => {
-    if (reduced) return;
+    if (staticIntro) return;
     if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
     window.scrollTo(0, 0);
-  }, [reduced]);
+  }, [staticIntro]);
 
   useLayoutEffect(() => {
-    if (reduced) return;
+    if (staticIntro) return;
     onResize();
-  }, [reduced, onResize]);
+  }, [staticIntro, onResize]);
 
   useEffect(() => {
-    if (reduced) {
+    if (staticIntro) {
       setNavReady(true);
       return;
     }
     setNavReady(false);
-  }, [reduced, setNavReady]);
+  }, [staticIntro, setNavReady]);
 
   useEffect(() => {
-    if (reduced) return;
+    if (staticIntro) return;
 
     const snapTop = () => {
       if (!navReadyRef.current && window.scrollY > 0) window.scrollTo(0, 0);
@@ -257,17 +260,17 @@ const CinematicIntro: React.FC<CinematicIntroProps> = ({
       window.removeEventListener('resize', onResize);
       if (rafId.current) cancelAnimationFrame(rafId.current);
     };
-  }, [reduced, onScroll, onResize]);
+  }, [staticIntro, onScroll, onResize]);
 
-  if (reduced) {
+  if (staticIntro) {
     return (
       <section aria-label={`${BRAND.name} — ${BRAND.tagline}`} className="relative bg-[#FAFAF9] dark:bg-[#0F1117]">
         <div className="pointer-events-none absolute inset-0 intro-pegboard opacity-[0.28] dark:opacity-[0.35]" />
         <div className="relative flex min-h-[50vh] w-full items-center justify-center px-6 py-24">
           <div className="flex flex-col items-center">
             <div className="brand-lockup">
-              <img src="/images/mark.svg" alt="" aria-hidden="true" className="h-14 w-auto sm:h-16" width={1122} height={927} />
-              <span className="brand-lockup-word heading text-4xl font-extrabold tracking-tight sm:text-5xl" aria-label={BRAND.name}>
+              <img src="/images/mark.svg" alt="" aria-hidden="true" className="h-12 w-auto sm:h-16" width={1122} height={927} />
+              <span className="brand-lockup-word heading text-3xl font-extrabold tracking-tight sm:text-5xl" aria-label={BRAND.name}>
                 <span className="text-ink dark:text-white">arsity</span>
                 <span className="text-brand dark:text-brand-light">Soko</span>
               </span>

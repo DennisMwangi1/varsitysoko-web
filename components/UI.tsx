@@ -465,7 +465,7 @@ export const WaitlistForm: React.FC<{
         setDone(true);
       }}
     >
-      <div className="flex flex-col sm:flex-row gap-3">
+      <div className="flex flex-col md:flex-row gap-3">
         <label className="sr-only" htmlFor={`${id}-email`}>
           Email address
         </label>
@@ -473,7 +473,7 @@ export const WaitlistForm: React.FC<{
         <label className="sr-only" htmlFor={`${id}-campus`}>
           Your campus
         </label>
-        <Select id={`${id}-campus`} name="campus" required defaultValue="" aria-label="Your campus" className="sm:max-w-[220px]">
+        <Select id={`${id}-campus`} name="campus" required defaultValue="" aria-label="Your campus" className="md:max-w-[220px]">
           <option value="" disabled>
             Your campus
           </option>

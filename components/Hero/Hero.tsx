@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { usePrefersReducedMotion } from './useSceneLoop';
+import { useIsMobile, usePrefersReducedMotion } from './useSceneLoop';
 import { EASE } from './variants';
 
 /**
@@ -8,6 +8,8 @@ import { EASE } from './variants';
  */
 const Hero: React.FC<{ className?: string }> = ({ className = '' }) => {
   const reduced = usePrefersReducedMotion();
+  const mobile = useIsMobile();
+  const staticHero = reduced || mobile;
 
   const image = (
     <img
@@ -29,7 +31,7 @@ const Hero: React.FC<{ className?: string }> = ({ className = '' }) => {
       </div>
 
       <div className="relative">
-        {reduced ? (
+        {staticHero ? (
           image
         ) : (
           <motion.div

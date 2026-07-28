@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fayodel Wholesalers — Photo-Led Concept</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0C1122;
+    --ink-2:#161E3A;
+    --ink-3:#39415C;
+    --paper:#F2F3F6;
+    --card:#FFFFFF;
+    --line:#D6DAE2;
+    --red:#E8402A;
+    --green:#1E9E4F;
+    --green-dark:#177C3E;
+    --mono:'IBM Plex Mono',monospace;
+    --disp:'Barlow Condensed',sans-serif;
+    --body:'Barlow',sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--body);background:var(--paper);color:var(--ink);line-height:1.55;font-size:16px}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1220px;margin:0 auto;padding:0 24px}
+  :focus-visible{outline:3px solid var(--red);outline-offset:2px;border-radius:2px}
+
+  .btn{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:15px;padding:12px 22px;border-radius:6px;border:none;cursor:pointer;transition:transform .15s,background .15s}
+  .btn:hover{transform:translateY(-1px)}
+  .btn-wa{background:var(--green);color:#fff}
+  .btn-wa:hover{background:var(--green-dark)}
+  .btn-white{background:#fff;color:var(--ink)}
+  .btn-white:hover{background:var(--red);color:#fff}
+  .btn-ghost-w{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.7)}
+  .btn-ghost-w:hover{background:#fff;color:var(--ink)}
+
+  /* photo slots: <img> with graceful fallback if a placeholder fails to load */
+  .ph{position:relative;overflow:hidden;background:
+      linear-gradient(160deg,var(--ink-2),var(--ink));display:block}
+  .ph:before{content:attr(data-label);position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+      font-family:var(--mono);font-size:11px;letter-spacing:.18em;color:#5A6386}
+  .ph img{position:relative;width:100%;height:100%;object-fit:cover;display:block}
+  .duo:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(12,17,34,.55),rgba(12,17,34,.55));mix-blend-mode:multiply;pointer-events:none}
+
+  /* ---------- utility + header (over hero) ---------- */
+  .util{background:var(--ink);color:#C6CBDA;font-size:13px;position:relative;z-index:60}
+  .util .wrap{display:flex;justify-content:space-between;gap:16px;padding:8px 24px;flex-wrap:wrap}
+  .util a{color:#fff;font-weight:600}
+  header{position:absolute;top:37px;left:0;right:0;z-index:50}
+  .hd{display:flex;align-items:center;gap:32px;padding:20px 24px;color:#fff}
+  .logo{font-family:var(--disp);font-weight:700;font-size:28px;letter-spacing:.04em;text-transform:uppercase;line-height:1;display:flex;align-items:center;gap:10px}
+  .logo small{display:block;font-family:var(--body);font-size:10px;letter-spacing:.22em;font-weight:600;color:#C6CBDA}
+  nav.main{display:flex;gap:24px;font-weight:500;font-size:15px}
+  nav.main a{padding:6px 0;border-bottom:2px solid transparent}
+  nav.main a:hover{border-bottom-color:var(--red)}
+  .hd .grow{flex:1}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative;min-height:92vh;display:flex;align-items:flex-end;color:#fff}
+  .hero .ph{position:absolute;inset:0}
+  .hero .ph:after{content:"";position:absolute;inset:0;background:
+      linear-gradient(180deg,rgba(12,17,34,.55) 0%,rgba(12,17,34,.15) 45%,rgba(12,17,34,.82) 100%)}
+  .hero-inner{position:relative;z-index:2;width:100%;padding-bottom:64px}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#FF7A66;font-weight:600;margin-bottom:16px}
+  h1{font-family:var(--disp);font-weight:700;font-size:clamp(48px,7vw,92px);line-height:.95;text-transform:uppercase}
+  h1 .thin{font-weight:500;color:#C6CBDA}
+  .hero p.lead{margin:20px 0 30px;font-size:18px;color:#E3E6EF;max-width:52ch}
+  .hero .ctas{display:flex;gap:14px;flex-wrap:wrap}
+  .hero-facts{display:flex;gap:36px;margin-top:44px;padding-top:22px;border-top:1px solid rgba(255,255,255,.25);flex-wrap:wrap}
+  .fact .n{font-family:var(--mono);font-size:20px;font-weight:600}
+  .fact .l{font-size:13px;color:#AAB1C6}
+  @media (prefers-reduced-motion:no-preference){
+    .hero-inner>*{animation:rise .6s ease both}
+    .hero-inner>*:nth-child(2){animation-delay:.06s}
+    .hero-inner>*:nth-child(3){animation-delay:.12s}
+    .hero-inner>*:nth-child(4){animation-delay:.18s}
+    .hero-inner>*:nth-child(5){animation-delay:.24s}
+  }
+  @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+  /* ---------- slim size strip ---------- */
+  .rail{background:var(--ink);color:#fff}
+  .rail .wrap{display:flex;align-items:center;gap:8px;padding:14px 24px;overflow-x:auto}
+  .rail .cap{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:#8F97B0;white-space:nowrap;margin-right:10px}
+  .plate{flex:none;background:transparent;border:1.5px solid #333D5E;border-radius:6px;padding:7px 14px;color:#fff;cursor:pointer;font-family:var(--disp);font-weight:700;font-size:19px;transition:border-color .15s,background .15s}
+  .plate:hover{border-color:#fff;background:var(--ink-2)}
+  .plate small{font-family:var(--mono);font-size:9.5px;color:#8F97B0;font-weight:400;margin-left:6px;letter-spacing:.04em}
+
+  /* ---------- sections ---------- */
+  section.block{padding:76px 0}
+  .sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:32px}
+  .sec-head h2{font-family:var(--disp);font-weight:700;font-size:38px;text-transform:uppercase;letter-spacing:.02em}
+  .sec-head .kicker{font-family:var(--mono);font-size:12px;color:var(--ink-3);letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:6px}
+  .sec-head a.all{font-weight:600;font-size:14px;border-bottom:2px solid var(--red);padding-bottom:2px;white-space:nowrap}
+
+  /* ---------- photo category tiles ---------- */
+  .cats{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:230px;gap:14px}
+  .cat{position:relative;border-radius:12px;overflow:hidden;color:#fff;display:flex}
+  .cat .ph{position:absolute;inset:0}
+  .cat .ph img{filter:grayscale(1) contrast(1.05);transition:filter .35s,transform .45s}
+  .cat:hover .ph img{filter:grayscale(0);transform:scale(1.04)}
+  .cat .ph:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,17,34,.15),rgba(12,17,34,.78))}
+  .cat .cbody{position:relative;z-index:2;margin-top:auto;padding:18px;width:100%}
+  .cat h3{font-family:var(--disp);font-size:26px;text-transform:uppercase;font-weight:600;line-height:1}
+  .cat .idx{font-family:var(--mono);font-size:10.5px;color:#C6CBDA;letter-spacing:.08em}
+  .cat.big{grid-column:span 2;grid-row:span 2}
+  .cat.big h3{font-size:40px}
+
+  /* ---------- product cards ---------- */
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .prod{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;transition:transform .15s,box-shadow .15s}
+  .prod:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(16,22,43,.12)}
+  .prod .ph{aspect-ratio:4/3}
+  .prod .ph img{transition:transform .4s}
+  .prod:hover .ph img{transform:scale(1.05)}
+  .badges{position:absolute;top:12px;left:12px;right:12px;display:flex;justify-content:space-between;z-index:2}
+  .btag{font-family:var(--mono);font-size:10px;letter-spacing:.12em;color:#fff;background:rgba(12,17,34,.75);border-radius:4px;padding:4px 8px}
+  .boff{font-family:var(--mono);font-size:11px;font-weight:600;background:var(--red);color:#fff;border-radius:4px;padding:4px 8px}
+  .pbody{padding:16px;display:flex;flex-direction:column;gap:10px;flex:1}
+  .pbody h3{font-size:15px;font-weight:600;line-height:1.35;min-height:2.7em}
+  .price{font-family:var(--mono)}
+  .price .now{font-size:17px;font-weight:600}
+  .price .was{font-size:12.5px;color:var(--ink-3);text-decoration:line-through;margin-left:8px}
+  .meta{display:flex;gap:10px;font-family:var(--mono);font-size:11px;color:var(--ink-3)}
+  .meta .stock{color:var(--green-dark);font-weight:500}
+  .pbody .btn{margin-top:auto;justify-content:center;font-size:14px;padding:10px 14px}
+
+  /* ---------- full-bleed deals band ---------- */
+  .deals{position:relative;color:#fff;min-height:380px;display:flex;align-items:center}
+  .deals .ph{position:absolute;inset:0}
+  .deals .ph:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(200,34,16,.92) 0%,rgba(200,34,16,.55) 55%,rgba(200,34,16,.25) 100%)}
+  .deals .wrap{position:relative;z-index:2;width:100%}
+  .deals h2{font-family:var(--disp);font-weight:700;font-size:56px;text-transform:uppercase;line-height:.95}
+  .deals p{opacity:.95;margin:12px 0 24px;max-width:48ch;font-size:17px}
+
+  /* ---------- steps ---------- */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .step{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:28px 24px}
+  .step .n{font-family:var(--mono);font-size:13px;color:var(--red);font-weight:600}
+  .step h3{font-family:var(--disp);font-size:24px;text-transform:uppercase;font-weight:600;margin:8px 0 8px}
+  .step p{font-size:14.5px;color:var(--ink-3)}
+
+  /* ---------- footer ---------- */
+  footer{background:var(--ink);color:#AAB1C6;font-size:14px}
+  footer .wrap{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;padding-top:56px;padding-bottom:40px}
+  footer h4{font-family:var(--disp);color:#fff;font-size:18px;text-transform:uppercase;letter-spacing:.04em;margin-bottom:12px}
+  footer li{list-style:none;margin-bottom:8px}
+  footer a:hover{color:#fff}
+  .foot-base{border-top:1px solid #232C4E;padding:18px 24px;font-size:12.5px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;color:#8F97B0}
+  .wa-float{position:fixed;right:20px;bottom:20px;z-index:70;width:54px;height:54px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+  .wa-float:hover{background:var(--green-dark)}
+
+  @media(max-width:960px){
+    nav.main{display:none}
+    .cats{grid-template-columns:repeat(2,1fr)}
+    .cat.big{grid-column:span 2;grid-row:span 1}
+    .grid{grid-template-columns:repeat(2,1fr)}
+    .steps{grid-template-columns:1fr}
+    footer .wrap{grid-template-columns:1fr 1fr}
+    .hero{min-height:80vh}
+  }
+  @media(max-width:560px){
+    .grid{grid-template-columns:1fr}
+    .cats{grid-template-columns:1fr}
+    .cat.big{grid-column:span 1}
+    .deals h2{font-size:40px}
+  }
+</style>
+</head>
+<body>
+
+<div class="util">
+  <div class="wrap">
+    <span>Mozart Building, Ronald Ngala St, Nairobi &nbsp;·&nbsp; <b style="color:#fff">Countrywide delivery</b></span>
+    <span>Order desk: <a href="https://wa.me/254715003007">WhatsApp +254 715 003 007</a></span>
+  </div>
+</div>
+
+<header>
+  <div class="wrap hd">
+    <a class="logo" href="#" aria-label="Fayodel Wholesalers home">
+      <svg width="34" height="34" viewBox="0 0 34 34" fill="none" aria-hidden="true">
+        <circle cx="17" cy="17" r="15.5" stroke="#fff" stroke-width="2.6"/>
+        <path d="M17 3v28M3 17h28M7 7l20 20M27 7L7 27" stroke="#fff" stroke-width="1.4"/>
+        <circle cx="17" cy="17" r="3.4" fill="#E8402A"/>
+      </svg>
+      <span>Fayodel<small>Wholesalers · Nairobi</small></span>
+    </a>
+    <nav class="main" aria-label="Primary">
+      <a href="#bikes">Bikes</a>
+      <a href="#kids">Kids</a>
+      <a href="#emobility">E-Mobility</a>
+      <a href="#deals">Deals Kibao</a>
+    </nav>
+    <div class="grow"></div>
+    <a class="btn btn-wa" href="https://wa.me/254715003007">Order on WhatsApp</a>
+  </div>
+</header>
+
+<!-- hero -->
+<section class="hero">
+  <span class="ph" data-label="HERO PHOTO — RIDER / PRODUCT SHOT">
+    <img src="https://images.unsplash.com/photo-1541625602330-2277a4c46182?w=1800&q=70" alt="" onerror="this.remove()">
+  </span>
+  <div class="wrap hero-inner">
+    <div class="eyebrow">Wholesale · Retail · Countrywide delivery</div>
+    <h1>Built to move<br><span class="thin">a whole country.</span></h1>
+    <p class="lead">Adult bikes, kids bikes, e-bikes and scooters — stocked in Nairobi, priced for resellers, delivered to all 47 counties. Browse, then order in one WhatsApp message.</p>
+    <div class="ctas">
+      <a class="btn btn-white" href="#bikes">Browse the catalogue</a>
+      <a class="btn btn-ghost-w" href="https://wa.me/254715003007">Talk to the order desk</a>
+    </div>
+    <div class="hero-facts">
+      <div class="fact"><div class="n">700+</div><div class="l">SKUs in stock</div></div>
+      <div class="fact"><div class="n">47</div><div class="l">Counties delivered</div></div>
+      <div class="fact"><div class="n">48 hr</div><div class="l">Nairobi dispatch</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- slim size strip -->
+<div class="rail" role="navigation" aria-label="Shop by wheel size">
+  <div class="wrap">
+    <span class="cap">SHOP BY WHEEL SIZE →</span>
+    <button class="plate">12&#8243;<small>AGE 2–4</small></button>
+    <button class="plate">16&#8243;<small>AGE 4–6</small></button>
+    <button class="plate">18&#8243;<small>AGE 5–8</small></button>
+    <button class="plate">20&#8243;<small>AGE 7–10</small></button>
+    <button class="plate">24&#8243;<small>AGE 9–12</small></button>
+    <button class="plate">26&#8243;<small>ADULT</small></button>
+    <button class="plate">29&#8243;<small>ADULT MTB</small></button>
+  </div>
+</div>
+
+<!-- photo category tiles -->
+<section class="block" id="bikes">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><span class="kicker">Catalogue / 01</span><h2>Shop by category</h2></div>
+    </div>
+    <div class="cats">
+      <a class="cat big" href="#">
+        <span class="ph" data-label="CATEGORY PHOTO — ADULT BIKES">
+          <img src="https://images.unsplash.com/photo-1485965120184-e220f721d03e?w=1200&q=70" alt="" onerror="this.remove()">
+        </span>
+        <div class="cbody"><h3>Adult Bikes</h3><span class="idx">MTB · ROAD · FATBIKES — FROM KSH 14,500</span></div>
+      </a>
+      <a class="cat" href="#" id="kids">
+        <span class="ph" data-label="KIDS BIKES">
+          <img src="https://images.unsplash.com/photo-1507035895480-2b3156c31fc8?w=800&q=70" alt="" onerror="this.remove()">
+        </span>
+        <div class="cbody"><h3>Kids Bikes</h3><span class="idx">12&#8243;–24&#8243; — FROM KSH 6,000</span></div>
+      </a>
+      <a class="cat" href="#" id="emobility">
+        <span class="ph" data-label="E-BIKES &amp; SCOOTERS">
+          <img src="https://images.unsplash.com/photo-1517649763962-0c623066013b?w=800&q=70" alt="" onerror="this.remove()">
+        </span>
+        <div class="cbody"><h3>E-Mobility</h3><span class="idx">48V E-BIKES · SCOOTERS · SKATES</span></div>
+      </a>
+      <a class="cat" href="#">
+        <span class="ph" data-label="ACCESSORIES &amp; SPARES"></span>
+        <div class="cbody"><h3>Accessories</h3><span class="idx">DERAILLEURS · GLOVES · REFLECTORS</span></div>
+      </a>
+      <a class="cat" href="#">
+        <span class="ph" data-label="TOOLS · MACHINES · FURNITURE"></span>
+        <div class="cbody"><h3>Tools &amp; More</h3><span class="idx">GENERATORS · WORKSHOP · FURNITURE</span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- featured products -->
+<section class="block" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><span class="kicker">Catalogue / 02</span><h2>Moving fastest this week</h2></div>
+      <a class="all" href="#">See full price list</a>
+    </div>
+    <div class="grid">
+
+      <div class="prod">
+        <span class="ph" data-label="PRODUCT PHOTO">
+          <img src="https://images.unsplash.com/photo-1485965120184-e220f721d03e?w=700&q=70" alt="Planet 26/27.5 mountain bike" onerror="this.remove()">
+          <span class="badges"><span class="btag">MTB · 26&#8243;</span><span class="boff">-23%</span></span>
+        </span>
+        <div class="pbody">
+          <h3>Planet 26/27.5&#8243; Mountain Bike — Black/Blue</h3>
+          <div class="price"><span class="now">KSh 18,999</span><span class="was">24,699</span></div>
+          <div class="meta"><span>SKU MTB-2675</span><span class="stock">● In stock</span></div>
+          <a class="btn btn-wa" href="https://wa.me/254715003007?text=Order%3A%20Planet%2026%2F27.5%20MTB">Order on WhatsApp</a>
+        </div>
+      </div>
+
+      <div class="prod">
+        <span class="ph" data-label="PRODUCT PHOTO">
+          <img src="https://images.unsplash.com/photo-1541625602330-2277a4c46182?w=700&q=70" alt="TRINIX M600 mountain bike" onerror="this.remove()">
+          <span class="badges"><span class="btag">MTB · 29&#8243;</span></span>
+        </span>
+        <div class="pbody">
+          <h3>TRINIX M600 Mountain Bike — Size 29</h3>
+          <div class="price"><span class="now">KSh 48,000</span></div>
+          <div class="meta"><span>SKU TRX-M600</span><span class="stock">● In stock</span></div>
+          <a class="btn btn-wa" href="https://wa.me/254715003007?text=Order%3A%20TRINIX%20M600%2029">Order on WhatsApp</a>
+        </div>
+      </div>
+
+      <div class="prod">
+        <span class="ph" data-label="PRODUCT PHOTO">
+          <img src="https://images.unsplash.com/photo-1507035895480-2b3156c31fc8?w=700&q=70" alt="FUWA kids bicycle" onerror="this.remove()">
+          <span class="badges"><span class="btag">KIDS · 16&#8243;</span><span class="boff">-23%</span></span>
+        </span>
+        <div class="pbody">
+          <h3>FUWA Kids Bicycle — Training Wheels &amp; Basket</h3>
+          <div class="price"><span class="now">KSh 7,000</span><span class="was">9,100</span></div>
+          <div class="meta"><span>SKU KID-FW16</span><span class="stock">● In stock</span></div>
+          <a class="btn btn-wa" href="https://wa.me/254715003007?text=Order%3A%20FUWA%20Kids%2016">Order on WhatsApp</a>
+        </div>
+      </div>
+
+      <div class="prod">
+        <span class="ph" data-label="PRODUCT PHOTO">
+          <span class="badges"><span class="btag">E-BIKE · 20&#8243;</span><span class="boff">-23%</span></span>
+        </span>
+        <div class="pbody">
+          <h3>Foldable Electric Bike 48V 20Ah — Li-ion</h3>
+          <div class="price"><span class="now">KSh 90,000</span><span class="was">117,000</span></div>
+          <div class="meta"><span>SKU EBK-4820</span><span class="stock">● In stock</span></div>
+          <a class="btn btn-wa" href="https://wa.me/254715003007?text=Order%3A%20Foldable%20E-Bike%2048V">Order on WhatsApp</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- full-bleed deals band -->
+<section class="deals" id="deals">
+  <span class="ph" data-label="DEALS BAND PHOTO">
+    <img src="https://images.unsplash.com/photo-1517649763962-0c623066013b?w=1800&q=70" alt="" onerror="this.remove()">
+  </span>
+  <div class="wrap">
+    <h2>Deals Kibao</h2>
+    <p>Up to 50% off selected bikes, scooters and accessories — one list, updated every morning, first come first served.</p>
+    <a class="btn btn-white" href="#">See today's list</a>
+  </div>
+</section>
+
+<!-- steps -->
+<section class="block">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><span class="kicker">Ordering / 03</span><h2>How ordering works</h2></div>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="n">STEP 1</div><h3>Browse &amp; pick</h3><p>Find what you need — filter by wheel size, category or price. Every listing shows live stock.</p></div>
+      <div class="step"><div class="n">STEP 2</div><h3>Order on WhatsApp</h3><p>Tap "Order on WhatsApp" on any product. The message is pre-filled — send it and the order desk confirms within minutes.</p></div>
+      <div class="step"><div class="n">STEP 3</div><h3>Pay &amp; receive</h3><p>Pay via M-Pesa. Nairobi orders dispatch within 48 hours; upcountry orders ship with your preferred courier.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <h4>Fayodel Wholesalers</h4>
+      <p>Kenya's bike and e-mobility wholesaler. Mozart Building, Ronald Ngala Street, Nairobi.</p>
+      <p style="margin-top:12px;font-family:var(--mono);font-size:13px">WhatsApp +254 715 003 007</p>
+    </div>
+    <div><h4>Catalogue</h4><ul><li><a href="#">Adult bikes</a></li><li><a href="#">Kids bikes</a></li><li><a href="#">E-mobility</a></li><li><a href="#">Accessories</a></li></ul></div>
+    <div><h4>Orders</h4><ul><li><a href="#">Track order</a></li><li><a href="#">Delivery &amp; counties</a></li><li><a href="#">Wholesale accounts</a></li><li><a href="#">Returns</a></li></ul></div>
+    <div><h4>Company</h4><ul><li><a href="#">About us</a></li><li><a href="#">Deals Kibao</a></li><li><a href="#">Contact</a></li></ul></div>
+  </div>
+  <div class="foot-base">
+    <span>© 2026 Fayodel Wholesalers. All prices in Kenyan Shillings, VAT inclusive.</span>
+    <span>Design concept B — placeholder photography, to be replaced with client product shots.</span>
+  </div>
+</footer>
+
+<a class="wa-float" href="https://wa.me/254715003007" aria-label="Chat on WhatsApp">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.2 1.2-1.7 1.2-.4.1-1 .1-1.6-.1-.4-.1-.9-.3-1.5-.6-2.6-1.1-4.3-3.8-4.4-4-.1-.2-1.1-1.4-1.1-2.7s.7-1.9.9-2.2c.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.4.2.5.7 1.8.8 1.9.1.1.1.3 0 .5-.3.6-.7.9-.5 1.2.7 1.2 1.6 2 2.8 2.6.3.2.5.1.7-.1l.9-1c.2-.2.4-.2.6-.1.3.1 1.6.8 1.9.9.3.2.5.2.5.4.1.1.1.7-.1 1.3Z"/></svg>
+</a>
+
+</body>
+</html>

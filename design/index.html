@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VarsitySoko — Sell. Connect. Grow.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --purple: #6C3AE0;
+  --dark: #1A1A2E;
+  --gray: #6B7280;
+  --white: #FFFFFF;
+  --font: 'Plus Jakarta Sans', sans-serif;
+}
+
+html { scroll-behavior: auto; }
+body {
+  font-family: var(--font);
+  color: var(--dark);
+  background: var(--white);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+#hero-container {
+  height: 480vh;
+  position: relative;
+}
+
+#hero-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--white);
+}
+
+/* Video placeholder */
+#video-layer {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #6C3AE0, #1A1A2E, #4A1FB8, #2D1B69, #6C3AE0);
+  background-size: 500% 500%;
+  animation: gradShift 12s ease infinite;
+  will-change: clip-path, opacity;
+}
+@keyframes gradShift {
+  0%   { background-position: 0% 50%; }
+  25%  { background-position: 100% 0%; }
+  50%  { background-position: 100% 100%; }
+  75%  { background-position: 0% 100%; }
+  100% { background-position: 0% 50%; }
+}
+
+.bokeh {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.15;
+  filter: blur(40px);
+  animation: float linear infinite;
+}
+.bokeh:nth-child(1) { width: 300px; height: 300px; background: #FFD60A; top: 10%; left: 15%; animation-duration: 18s; }
+.bokeh:nth-child(2) { width: 250px; height: 250px; background: #A78BFA; top: 50%; left: 60%; animation-duration: 22s; animation-delay: -5s; }
+.bokeh:nth-child(3) { width: 350px; height: 350px; background: #6C3AE0; top: 30%; left: 40%; animation-duration: 16s; animation-delay: -8s; }
+.bokeh:nth-child(4) { width: 200px; height: 200px; background: #FFD60A; top: 70%; left: 20%; animation-duration: 20s; animation-delay: -3s; }
+.bokeh:nth-child(5) { width: 280px; height: 280px; background: #818CF8; top: 15%; left: 75%; animation-duration: 24s; animation-delay: -12s; }
+
+@keyframes float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(40px, -30px) scale(1.1); }
+  50% { transform: translate(-20px, 40px) scale(0.9); }
+  75% { transform: translate(30px, 20px) scale(1.05); }
+}
+
+#video-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  pointer-events: none;
+}
+#video-overlay .hero-line {
+  font-weight: 800;
+  font-size: clamp(2rem, 5vw, 4.5rem);
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  line-height: 1.15;
+  text-align: center;
+  text-shadow: 0 2px 40px rgba(0,0,0,0.3);
+}
+#video-overlay .hero-sub {
+  font-weight: 400;
+  font-size: clamp(0.9rem, 1.5vw, 1.2rem);
+  color: rgba(255,255,255,0.7);
+  margin-top: 1rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+#logo-layer {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+  opacity: 0;
+  pointer-events: none;
+}
+#logo-v { width: 160px; height: 196px; }
+
+#brand-layer {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 6;
+  opacity: 0;
+  pointer-events: none;
+}
+#brand-inner {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+#brand-v { width: 60px; height: 74px; flex-shrink: 0; }
+#brand-text {
+  font-weight: 800;
+  font-size: 3.2rem;
+  display: inline-flex;
+  white-space: nowrap;
+}
+#brand-text .char {
+  display: inline-block;
+  opacity: 0;
+  color: var(--dark);
+}
+#brand-text .char.soko { color: var(--purple); }
+
+#tagline {
+  font-weight: 600;
+  font-size: 1.15rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gray);
+  margin-top: 1.2rem;
+  opacity: 0;
+}
+
+#scroll-hint {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgba(255,255,255,0.6);
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  animation: hintPulse 2s ease infinite;
+}
+#scroll-hint .chevron {
+  width: 24px; height: 24px;
+  border-right: 2px solid rgba(255,255,255,0.5);
+  border-bottom: 2px solid rgba(255,255,255,0.5);
+  transform: rotate(45deg);
+}
+@keyframes hintPulse {
+  0%, 100% { opacity: 0.6; transform: translateX(-50%) translateY(0); }
+  50% { opacity: 1; transform: translateX(-50%) translateY(6px); }
+}
+
+@media (max-width: 768px) {
+  #brand-text { font-size: 2rem !important; }
+  #logo-v { width: 110px; height: 135px; }
+  #brand-v { width: 40px; height: 49px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+</style>
+</head>
+<body>
+
+<div id="hero-container">
+  <div id="hero-sticky">
+
+    <div id="video-layer">
+      <div class="bokeh"></div>
+      <div class="bokeh"></div>
+      <div class="bokeh"></div>
+      <div class="bokeh"></div>
+      <div class="bokeh"></div>
+      <div id="video-overlay">
+        <div class="hero-line">Your Campus</div>
+        <div class="hero-line">Your Marketplace</div>
+        <div class="hero-sub">A place to trade with people you trust</div>
+      </div>
+    </div>
+
+    <div id="logo-layer">
+      <svg id="logo-v" viewBox="0 0 200 245" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0 0 L44 0 L100 170 L156 0 L200 0 L115 245 L85 245 Z" fill="#6C3AE0"/>
+        <circle cx="100" cy="72" r="12" fill="white"/>
+        <path d="M86 88 Q100 82 114 88 L112 130 Q100 134 88 130 Z" fill="white"/>
+        <circle cx="74" cy="100" r="9" fill="white" opacity="0.85"/>
+        <path d="M64 113 Q74 108 84 113 L82 142 Q74 145 66 142 Z" fill="white" opacity="0.85"/>
+        <circle cx="126" cy="100" r="9" fill="white" opacity="0.85"/>
+        <path d="M116 113 Q126 108 136 113 L134 142 Q126 145 118 142 Z" fill="white" opacity="0.85"/>
+      </svg>
+    </div>
+
+    <div id="brand-layer">
+      <div id="brand-inner">
+        <svg id="brand-v" viewBox="0 0 200 245" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 0 L44 0 L100 170 L156 0 L200 0 L115 245 L85 245 Z" fill="#6C3AE0"/>
+          <circle cx="100" cy="72" r="12" fill="white"/>
+          <path d="M86 88 Q100 82 114 88 L112 130 Q100 134 88 130 Z" fill="white"/>
+          <circle cx="74" cy="100" r="9" fill="white" opacity="0.85"/>
+          <path d="M64 113 Q74 108 84 113 L82 142 Q74 145 66 142 Z" fill="white" opacity="0.85"/>
+          <circle cx="126" cy="100" r="9" fill="white" opacity="0.85"/>
+          <path d="M116 113 Q126 108 136 113 L134 142 Q126 145 118 142 Z" fill="white" opacity="0.85"/>
+        </svg>
+        <span id="brand-text"></span>
+      </div>
+      <div id="tagline">Sell · Connect · Grow</div>
+    </div>
+
+    <div id="scroll-hint">
+      <span>Scroll</span>
+      <div class="chevron"></div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  var hero      = document.getElementById('hero-container');
+  var videoEl   = document.getElementById('video-layer');
+  var overlayEl = document.getElementById('video-overlay');
+  var logoEl    = document.getElementById('logo-layer');
+  var brandEl   = document.getElementById('brand-layer');
+  var textEl    = document.getElementById('brand-text');
+  var tagEl     = document.getElementById('tagline');
+  var hintEl    = document.getElementById('scroll-hint');
+  var logoSvg   = document.getElementById('logo-v');
+
+  // ── Typewriter characters ─────────────────────────────────────
+  var CHARS = 'arsitySoko';
+  var SOKO_START = 6;
+  textEl.innerHTML = CHARS.split('').map(function(ch, i) {
+    return '<span class="char' + (i >= SOKO_START ? ' soko' : '') + '">' + ch + '</span>';
+  }).join('');
+  var charEls = textEl.querySelectorAll('.char');
+
+  // ── Clip-path: full rectangle ─────────────────────────────────
+  var RECT = [
+    [0, 0], [22, 0], [50, 0], [78, 0], [100, 0],
+    [100, 100], [50, 100], [0, 100]
+  ];
+
+  // ── V shape computed from logo element's actual position ──────
+  var V_SHAPE = [];
+
+  function computeVShape() {
+    var r  = logoSvg.getBoundingClientRect();
+    var vw = window.innerWidth;
+    var vh = window.innerHeight;
+    var l  = (r.left / vw) * 100;
+    var ri = (r.right / vw) * 100;
+    var t  = (r.top / vh) * 100;
+    var b  = (r.bottom / vh) * 100;
+    var cx = (l + ri) / 2;
+    var w  = ri - l;
+
+    // Proportions from the SVG viewBox (0 0 200 245)
+    var innerL = l + w * 0.22;
+    var innerR = l + w * 0.78;
+    var notchY = t + (b - t) * 0.694;
+    var pointL = l + w * 0.425;
+    var pointR = l + w * 0.575;
+
+    V_SHAPE = [
+      [l, t], [innerL, t], [cx, notchY], [innerR, t], [ri, t],
+      [pointR, b], [cx, b], [pointL, b]
+    ];
+  }
+
+  // ── Math helpers ──────────────────────────────────────────────
+  function lerp(a, b, t) { return a + (b - a) * t; }
+  function easeInOutCubic(t) { return t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2,3)/2; }
+  function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
+  function clamp01(v) { return v < 0 ? 0 : v > 1 ? 1 : v; }
+  function phase(s, a, b) { return clamp01((s - a) / (b - a)); }
+
+  function buildClipPath(t) {
+    if (!V_SHAPE.length) return 'none';
+    return 'polygon(' + RECT.map(function(r, i) {
+      var v = V_SHAPE[i];
+      return lerp(r[0], v[0], t) + '% ' + lerp(r[1], v[1], t) + '%';
+    }).join(', ') + ')';
+  }
+
+  // ── Scroll-driven update ──────────────────────────────────────
+  var ticking = false;
+
+  function update() {
+    ticking = false;
+    if (!V_SHAPE.length) return;
+
+    var rect = hero.getBoundingClientRect();
+    var scrollable = hero.offsetHeight - window.innerHeight;
+    var p = clamp01(-rect.top / scrollable);
+
+    // Phase 1 — Full video              (0.00 – 0.10)
+    // Phase 2 — Rectangle → V morph     (0.10 – 0.38)
+    videoEl.style.clipPath = buildClipPath(easeInOutCubic(phase(p, 0.10, 0.38)));
+
+    // Overlay text fades
+    overlayEl.style.opacity = 1 - phase(p, 0.06, 0.20);
+
+    // Phase 3 — Crossfade video → logo  (0.38 – 0.50)
+    videoEl.style.opacity = 1 - phase(p, 0.38, 0.50);
+    logoEl.style.opacity = clamp01(phase(p, 0.38, 0.50) - phase(p, 0.50, 0.58));
+
+    // Phase 4 — Brand lockup            (0.50 – 0.58)
+    brandEl.style.opacity = phase(p, 0.50, 0.58);
+
+    // Phase 5 — Typewriter              (0.58 – 0.80)
+    var typeT = phase(p, 0.58, 0.80);
+    var n = charEls.length;
+    for (var i = 0; i < n; i++) {
+      charEls[i].style.opacity = clamp01((typeT - i / n) / (0.8 / n));
+    }
+
+    // Phase 6 — Tagline                 (0.78 – 0.88)
+    var tagT = easeOutCubic(phase(p, 0.78, 0.88));
+    tagEl.style.opacity = tagT;
+    tagEl.style.transform = 'translateY(' + ((1 - tagT) * 12) + 'px)';
+
+    // Scroll hint
+    hintEl.style.opacity = 1 - phase(p, 0, 0.05);
+  }
+
+  function onScroll() {
+    if (!ticking) { ticking = true; requestAnimationFrame(update); }
+  }
+
+  function init() { computeVShape(); update(); }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', init);
+  window.addEventListener('load', init);
+  if (document.readyState === 'complete') init();
+  else document.addEventListener('DOMContentLoaded', init);
+
+})();
+</script>
+</body>
+</html>

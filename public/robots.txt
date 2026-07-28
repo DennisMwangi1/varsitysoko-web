@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://varsitysoko.co.ke/sitemap.xml

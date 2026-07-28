@@ -1,0 +1,329 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+
+  --color-brand: #5a24d5;
+  --color-brand-dark: #3d12a8;
+  --color-brand-navy: #2a1570;
+  --color-brand-light: #8b5cf6;
+  --color-accent: #ffd60a;
+  --color-gold: #d9a521;
+  --color-gold-soft: #fbf3d8;
+  --color-mpesa: #43b02a;
+  --color-ink: #101828;
+
+  --radius-xl: 18px;
+  --radius-2xl: 24px;
+  --radius-3xl: 32px;
+
+  --shadow-card: 0 6px 14px rgba(42, 21, 112, 0.06);
+  --shadow-lift: 0 18px 40px rgba(61, 18, 168, 0.14);
+}
+
+:root {
+  --brand-purple: #5a24d5;
+  --brand-purple-dark: #3d12a8;
+  --brand-navy: #2a1570;
+  --brand-accent: #ffd60a;
+  --brand-green: #059669;
+  --brand-black: #0f172a;
+  --brand-white: #ffffff;
+  --brand-cream: #fafaf9;
+  --page-bg: #fafaf9;
+  --surface: #ffffff;
+  --ink: #0f172a;
+  --muted: #64748b;
+  --border: #e2e8f0;
+}
+
+html.dark {
+  --page-bg: #0f1117;
+  --surface: #1a1f2e;
+  --ink: #f0f4ff;
+  --muted: #94a3b8;
+  --border: #2a3350;
+  --brand-cream: #0f1117;
+  --brand-black: #f0f4ff;
+  --brand-white: #1a1f2e;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--page-bg);
+  color: var(--ink);
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+h1,
+h2,
+h3,
+.heading {
+  font-family: var(--font-sans);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.tnums {
+  font-variant-numeric: tabular-nums;
+}
+
+.reveal-up {
+  animation: revealUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes revealUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hover-lift {
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.hover-lift:hover {
+  transform: translateY(-8px);
+}
+
+.brand-pattern {
+  background-image: radial-gradient(circle, #5a24d5 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.intro-pegboard {
+  background-image: radial-gradient(circle, rgba(90, 36, 213, 0.55) 1.25px, transparent 1.4px);
+  background-size: 20px 20px;
+}
+
+html.dark .intro-pegboard {
+  background-image: radial-gradient(circle, rgba(167, 139, 250, 0.5) 1.25px, transparent 1.4px);
+}
+
+.brand-lockup {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+}
+
+.brand-lockup-word {
+  margin-left: -0.22em;
+}
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+html.dark .glass-panel {
+  background: rgba(26, 31, 46, 0.8);
+  border: 1px solid rgba(42, 51, 80, 0.6);
+}
+
+.text-watermark {
+  -webkit-text-stroke: 1px rgba(15, 23, 42, 0.05);
+  color: transparent;
+  user-select: none;
+  line-height: 0.8;
+  font-family: var(--font-sans);
+  font-weight: 800;
+}
+
+html.dark .text-watermark {
+  -webkit-text-stroke: 1px rgba(240, 244, 255, 0.06);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--page-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: #e2e8f0;
+  border-radius: 10px;
+}
+html.dark ::-webkit-scrollbar-thumb {
+  background: #2a3350;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--brand-purple);
+}
+
+.shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite linear;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #5a24d5, #8b5cf6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal-up {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .hover-lift:hover {
+    transform: none !important;
+  }
+}
+
+.hero-screen {
+  container-type: inline-size;
+}
+
+.intro-gradient {
+  background: linear-gradient(135deg, #5a24d5, #2a1570, #3d12a8, #1e1145, #5a24d5);
+  background-size: 500% 500%;
+  animation: introGradient 14s ease infinite;
+}
+
+@keyframes introGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  25% {
+    background-position: 100% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  75% {
+    background-position: 0% 100%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.intro-bokeh {
+  position: absolute;
+  border-radius: 9999px;
+  opacity: 0.16;
+  filter: blur(40px);
+  animation: introFloat linear infinite;
+}
+.intro-bokeh:nth-child(1) {
+  width: 300px;
+  height: 300px;
+  background: #ffd60a;
+  top: 10%;
+  left: 15%;
+  animation-duration: 18s;
+}
+.intro-bokeh:nth-child(2) {
+  width: 250px;
+  height: 250px;
+  background: #8b5cf6;
+  top: 50%;
+  left: 60%;
+  animation-duration: 22s;
+  animation-delay: -5s;
+}
+.intro-bokeh:nth-child(3) {
+  width: 350px;
+  height: 350px;
+  background: #5a24d5;
+  top: 30%;
+  left: 40%;
+  animation-duration: 16s;
+  animation-delay: -8s;
+}
+.intro-bokeh:nth-child(4) {
+  width: 200px;
+  height: 200px;
+  background: #ffd60a;
+  top: 70%;
+  left: 20%;
+  animation-duration: 20s;
+  animation-delay: -3s;
+}
+.intro-bokeh:nth-child(5) {
+  width: 280px;
+  height: 280px;
+  background: #8b5cf6;
+  top: 15%;
+  left: 75%;
+  animation-duration: 24s;
+  animation-delay: -12s;
+}
+
+@keyframes introFloat {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  25% {
+    transform: translate(40px, -30px) scale(1.1);
+  }
+  50% {
+    transform: translate(-20px, 40px) scale(0.9);
+  }
+  75% {
+    transform: translate(30px, 20px) scale(1.05);
+  }
+}
+
+.intro-chevron {
+  animation: introHint 1.6s ease-in-out infinite;
+}
+
+@keyframes introHint {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.45;
+  }
+  50% {
+    transform: translateY(8px);
+    opacity: 1;
+  }
+}
+
+/* Shorter scrub on phones so CTAs arrive sooner; longer on desktop. */
+.intro-scrub {
+  height: 160vh;
+}
+@media (min-width: 640px) {
+  .intro-scrub {
+    height: 300vh;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid #5a24d5;
+  outline-offset: 2px;
+  border-radius: 4px;
+}

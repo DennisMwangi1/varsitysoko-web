@@ -1,6 +1,6 @@
 import React from 'react';
 import type { ViewState } from '../App';
-import { Eyebrow, Button, SectionHeading } from '../components/UI';
+import { Eyebrow, Button, SectionHeading, PhoneFrame } from '../components/UI';
 
 const Pillar: React.FC<{ title: string; body: string; icon: React.ReactNode; bg: string; fg?: string }> = ({ title, body, icon, bg, fg = '#fff' }) => (
   <div className="bg-white/5 backdrop-blur-sm p-8 rounded-2xl border border-white/10 reveal-up">
@@ -38,13 +38,13 @@ const AboutPage: React.FC<{ onNavigate: (v: ViewState) => void }> = ({ onNavigat
           </p>
           <div className="mt-6 h-1 w-24 bg-brand rounded-full" />
         </div>
-        <div className="reveal-up aspect-[16/11] rounded-3xl overflow-hidden border border-slate-100 dark:border-[#2A3350]">
+        <div className="reveal-up rounded-3xl overflow-hidden">
           <img
-            src="/images/hero-1400.webp"
-            alt="Students on a Kenyan campus"
-            className="h-full w-full object-cover"
-            width={1400}
-            height={900}
+            src="/images/laptop.png"
+            alt="VarsitySoko marketplace on laptop and phone"
+            className="w-full h-auto block"
+            width={1315}
+            height={862}
             loading="lazy"
             decoding="async"
           />
@@ -61,16 +61,8 @@ const AboutPage: React.FC<{ onNavigate: (v: ViewState) => void }> = ({ onNavigat
           </p>
           <div className="mt-6 h-1 w-24 bg-emerald-500 rounded-full" />
         </div>
-        <div className="md:order-1 reveal-up aspect-[16/11] rounded-3xl overflow-hidden border border-slate-100 dark:border-[#2A3350]">
-          <img
-            src="/images/home.png"
-            alt="VarsitySoko marketplace on a phone"
-            className="h-full w-full object-cover object-top"
-            width={1200}
-            height={900}
-            loading="lazy"
-            decoding="async"
-          />
+        <div className="md:order-1 reveal-up flex justify-center">
+          <PhoneFrame src="/images/home.jpeg" alt="VarsitySoko marketplace home screen" />
         </div>
       </section>
 

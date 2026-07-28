@@ -17,11 +17,12 @@ const Detail: React.FC<{
   title: string;
   body: string;
   points: string[];
+  image: string;
   accent?: string;
   flip?: boolean;
   /** Higher cards sit above earlier ones in the sticky stack. */
   layer: number;
-}> = ({ eyebrow, title, body, points, accent, flip, layer }) => {
+}> = ({ eyebrow, title, body, points, image, accent, flip, layer }) => {
   const { ref, style } = useStickyStackFade<HTMLDivElement>();
   return (
   <div
@@ -38,7 +39,7 @@ const Detail: React.FC<{
       </ul>
     </div>
     <div className={flip ? 'md:order-1' : ''}>
-      <PhoneFrame src="/images/app-screenshot.png" alt={`VarsitySoko — ${title}`} />
+      <PhoneFrame src={image} alt={`VarsitySoko — ${title}`} />
     </div>
   </div>
   );
@@ -74,6 +75,7 @@ const FeaturesPage: React.FC<{ onNavigate: (v: ViewState) => void }> = ({ onNavi
       <section className="max-w-6xl mx-auto px-6">
         <Detail
           layer={1}
+          image="/images/verified.jpeg"
           eyebrow="Identity"
           title="Verified students only."
           body="Everyone proves they study at your university before they can trade — with a one-time code to their campus email, or a reviewed student ID. You always know who you’re dealing with."
@@ -82,6 +84,7 @@ const FeaturesPage: React.FC<{ onNavigate: (v: ViewState) => void }> = ({ onNavi
         <Detail
           layer={2}
           flip
+          image="/images/listing.jpeg"
           eyebrow="Selling"
           title="List fast, sell smart."
           body="Post an item in a couple of taps and get a clear view of how it’s doing. Sellers see helpful insights on interest and pricing so they can move items faster."
@@ -89,11 +92,11 @@ const FeaturesPage: React.FC<{ onNavigate: (v: ViewState) => void }> = ({ onNavi
         />
         <Detail
           layer={3}
-          eyebrow="Payments"
-          title="Pay in person — the app never holds your money."
-          body="You settle with the seller face-to-face at the meetup, once you have the item in hand — cash or M-Pesa, your choice. There’s no escrow and no shipping. The only money that flows through the app is an optional M-Pesa payment when a seller chooses to promote a listing."
-          points={['No escrow, no held funds', 'Pay hand-to-hand at the meetup', 'M-Pesa for optional promotions', 'No hidden fees to browse or trade']}
-          accent="#16A34A"
+          image="/images/chat.jpeg"
+          eyebrow="Messaging"
+          title="Chat, offer, and agree a meetup."
+          body="Message sellers in real time, negotiate a price with in-app offers, and lock in a safe on-campus meetup — without leaving VarsitySoko."
+          points={['Real-time chat on every listing', 'Make and accept offers in-thread', 'Safety tips on every conversation', 'See listing context while you chat']}
         />
       </section>
 
